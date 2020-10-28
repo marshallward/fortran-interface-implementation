@@ -1,30 +1,42 @@
 Proposal for supporting multiple FMS-like frameworks
 ====================================================
 
-Usage:
+Usage
+-----
 
-- `make test_default`
+Build the generic non-FMS program:
+```
+make test_default
+./test_default
+```
 
-   Uses a generic subroutine to print a message.
+Build the FMS library and the FMS-based program:
+```
+cd deps
+FCFLAGS="-g -O0" make -j
+cd ..
+make test_fms
+./test_fms
+```
 
-- `make test_fms`
-
-   Use the FMS library's mpp_error to print a message.
+Quick explanation
+-----------------
 
 Both builds use `MOM_mesg` inside the `MOM_io` module to print a message.
 
 MOM_mesg is described in a module which only contains its interface.  There is
 only an implicit reference to submodules, where the function would be
-implemented.
+implemented.  
 
-Two implementations of `MOM_mesg` are provided, each in a submodule.
+Two implementations of `MOM_mesg` are provided, each in a separate file and
+each containing one submodule.
+
+The generic build implements `MOM_mesg` in a different submodule,
+using Fortran `print` statements, and does not require any references to FMS.
 
 The FMS build implements this in one submodule using mpp_error, an FMS
 function.  This build requires an explicit access to the FMS library and its
 modules.
-
-The second "default" build implements `MOM_mesg` in a different submodule,
-using Fortran `print` statements, and does not require any references to FMS.
 
 These two submodules are incompatible, so would be selected at build time, e.g.
 autoconf or mkmf.
