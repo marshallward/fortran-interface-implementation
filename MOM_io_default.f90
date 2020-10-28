@@ -1,7 +1,7 @@
 submodule (MOM_io) MOM_io_mesg
   implicit none
 contains  
-  subroutine MOM_mesg(mesg)
+  module subroutine MOM_mesg(mesg)
     character(len=*), intent(in) :: mesg
     print *, mesg
   end subroutine
