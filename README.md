@@ -43,17 +43,3 @@ autoconf or mkmf.
 
 Additional implementations could be provided, and we would not need to support
 or even know about them.
-
-
-FMS issues
-----------
-I don't give any instructions here on building FMS.  It assumes that the
-library is in `deps/lib` and that the relevant modfiles are in `deps/include`.
-
-I just copied `deps` from the MOM6 repository (`ac/deps`) and ran `make -j` so
-that should probably work if you want to test it out.
-
-(`FCFLAGS="-g -O0" make -j` will probably speed things up.)
-
-Also note that FMS-based models require a `input.nml` file.  An empty one
-should be sufficient.
